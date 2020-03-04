@@ -50,8 +50,12 @@ class Board:
         loc = piece.loc
         type = piece.type
 
+        # El movimiento require de un cambio de ubicación.
+        if tuple(loc) == tuple(new_loc):
+            return False
+
         # Peón
-        if type == 'P':
+        elif type == 'P':
             x_check = abs(loc.x - new_loc.x) == 1
             y_check = new_loc.y == loc.y + 1
 
@@ -77,6 +81,15 @@ class Board:
             diag_check = loc.dist_x(new_loc) == loc.dist_y(new_loc)
 
             return diag_check and self.is_freeway(loc, new_loc)
+
+        # Dama
+        elif type == 'D':
+            x_check = loc.x == new_loc.x
+            y_check = loc.y == new_loc.y
+            diag_check = loc.dist_x(new_loc) == loc.dist_y(new_loc)
+            locs_check = x_check or y_check or diag_check
+
+            return locs_check and self.is_freeway(loc, new_loc)
 
     def solve(self):
         return
