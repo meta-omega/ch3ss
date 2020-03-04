@@ -47,20 +47,36 @@ class Board:
         return pieces.isdisjoint(locations)
 
     def can_move(self, piece, new_loc):
+        loc = piece.loc
+        type = piece.type
+
         # Peón
-        if piece.type == 'P':
-            x_check = abs(piece.loc.x - new_loc.x) == 1
-            y_check = new_loc.y == piece.loc.y + 1
+        if type == 'P':
+            x_check = abs(loc.x - new_loc.x) == 1
+            y_check = new_loc.y == loc.y + 1
+
+            return x_check and y_check
+
+        # Rey
+        elif type == 'R':
+            x_check = loc.dist_x(new_loc) == 1
+            y_check = loc.dist_y(new_loc) == 1
 
             return x_check and y_check
 
         # Torre
-        elif piece.type == 'T':
-            x_check = piece.loc.x == new_loc.x
-            y_check = piece.loc.y == new_loc.y
+        elif type == 'T':
+            x_check = loc.x == new_loc.x
+            y_check = loc.y == new_loc.y
             axis_check = x_check or y_check
 
-            return axis_check and self.is_freeway(piece.loc, new_loc)
+            return axis_check and self.is_freeway(loc, new_loc)
+
+        # Alfil
+        elif type == 'A':
+            axis_check = loc.dist_x(new_loc) == loc.dist_y(new_loc)
+
+            return axis_check and self.is_freeway(loc, new_loc)
 
     def solve(self):
         return

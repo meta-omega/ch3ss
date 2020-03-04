@@ -5,17 +5,17 @@ from location   import Location
 # C3 Chess Solver
 
 '''
-        A       Alfil
+        A       Alfil       Done + Checked
         T       Torre       Done + Checked
         C       Caballo
         P       Peón        Done + Checked
         D       Dama
-        R       Rey
+        R       Rey         Done + Checked
 '''
 
 b = Board()
 
-l1 = Location(3, 4)
+l1 = Location(3, 5)
 l2 = Location(8, 1)
 l3 = Location(5, 7)
 l4 = Location(6, 8)
