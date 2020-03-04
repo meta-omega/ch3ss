@@ -74,9 +74,9 @@ class Board:
 
         # Alfil
         elif type == 'A':
-            axis_check = loc.dist_x(new_loc) == loc.dist_y(new_loc)
+            diag_check = loc.dist_x(new_loc) == loc.dist_y(new_loc)
 
-            return axis_check and self.is_freeway(loc, new_loc)
+            return diag_check and self.is_freeway(loc, new_loc)
 
     def solve(self):
         return
