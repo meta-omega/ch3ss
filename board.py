@@ -91,5 +91,15 @@ class Board:
 
             return locs_check and self.is_freeway(loc, new_loc)
 
+        # Caballo
+        elif type == 'C':
+            x_check = 0 < loc.dist_x(new_loc) < 3
+            y_check = 0 < loc.dist_y(new_loc) < 3
+            sum_check = loc.dist(new_loc) == 3
+
+            return x_check and y_check and sum_check
+
+        return False
+
     def solve(self):
         return
