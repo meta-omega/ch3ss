@@ -1,3 +1,4 @@
+from move   import Move
 from copy   import copy
 from utils  import sign
 
@@ -27,7 +28,8 @@ class Board:
 
         return s
 
-    def is_freeway(self, start, end): # Creo que mejorable usando rectas.
+    # Creo que mejorable usando rectas.
+    def is_freeway(self, start, end):
         locations = []
         loc = copy(start)
 
@@ -46,60 +48,23 @@ class Board:
 
         return pieces.isdisjoint(locations)
 
-    def can_move(self, piece, new_loc):
-        loc = piece.loc
-        type = piece.type
-
-        # El movimiento require de un cambio de ubicación.
-        if tuple(loc) == tuple(new_loc):
-            return False
-
-        # Peón
-        elif type == 'P':
-            x_check = abs(loc.x - new_loc.x) == 1
-            y_check = new_loc.y == loc.y + 1
-
-            return x_check and y_check
-
-        # Rey
-        elif type == 'R':
-            x_check = loc.dist_x(new_loc) == 1
-            y_check = loc.dist_y(new_loc) == 1
-
-            return x_check and y_check
-
-        # Torre
-        elif type == 'T':
-            x_check = loc.x == new_loc.x
-            y_check = loc.y == new_loc.y
-            axis_check = x_check or y_check
-
-            return axis_check and self.is_freeway(loc, new_loc)
-
-        # Alfil
-        elif type == 'A':
-            diag_check = loc.dist_x(new_loc) == loc.dist_y(new_loc)
-
-            return diag_check and self.is_freeway(loc, new_loc)
-
-        # Dama
-        elif type == 'D':
-            x_check = loc.x == new_loc.x
-            y_check = loc.y == new_loc.y
-            diag_check = loc.dist_x(new_loc) == loc.dist_y(new_loc)
-            locs_check = x_check or y_check or diag_check
-
-            return locs_check and self.is_freeway(loc, new_loc)
-
-        # Caballo
-        elif type == 'C':
-            x_check = 0 < loc.dist_x(new_loc) < 3
-            y_check = 0 < loc.dist_y(new_loc) < 3
-            sum_check = loc.dist(new_loc) == 3
-
-            return x_check and y_check and sum_check
-
-        return False
-
-    def solve(self):
+    def make_move(self, move):
         return
+
+    def get_tree(self):
+        for piece in self.pieces:
+            for prey in self.pieces:
+                loc = prey.loc
+                move = Move(piece, loc)
+
+                if move.is_valid(ctx = self):
+                    new_board = copy(self)
+
+                    self.children.append(move)
+
+
+
+
+
+
+# Caca.

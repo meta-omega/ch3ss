@@ -9,6 +9,12 @@ class Location:
         yield self.x
         yield self.y
 
+    def __eq__(self, other):
+        if isinstance(other, Location):
+            return tuple(self) == tuple(other)
+
+        return False
+
     def __repr__(self):
         return f'({self.x}, {self.y})'
 
