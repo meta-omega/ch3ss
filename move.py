@@ -15,6 +15,9 @@ class Move:
 
         return False
 
+    def __hash__(self):
+        return hash(tuple(self))
+
     def __repr__(self):
         return f'{{{self.piece}, {self.loc}}}'
 
@@ -38,8 +41,8 @@ class Move:
 
         # Rey
         elif type == 'R':
-            x_check = loc.dist_x(new_loc) == 1
-            y_check = loc.dist_y(new_loc) == 1
+            x_check = loc.dist_x(new_loc) < 2
+            y_check = loc.dist_y(new_loc) < 2
 
             return x_check and y_check
 
@@ -69,9 +72,8 @@ class Move:
         # Caballo
         elif type == 'C':
             x_check = 0 < loc.dist_x(new_loc) < 3
-            y_check = 0 < loc.dist_y(new_loc) < 3
             sum_check = loc.dist(new_loc) == 3
 
-            return x_check and y_check and sum_check
+            return x_check and sum_check
 
         return False

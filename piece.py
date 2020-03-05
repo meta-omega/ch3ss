@@ -15,5 +15,8 @@ class Piece:
 
         return False
 
+    def __hash__(self):
+        return hash(tuple(self))
+
     def __repr__(self):
         return f'[{self.type}, {self.loc}]'
