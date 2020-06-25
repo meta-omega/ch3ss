@@ -79,10 +79,14 @@ class Board:
     # No es un árbol, cambiale el nombre.
     def graph_tree(self):
         graph = Graph()
+        graphed = set()
 
         def aux(board):
             for child in board.children:
-                graph.add_edge(str(board), str(child))
+                if not f'{str(board)}, {str(child)}' in graphed:
+                    graph.add_edge(str(board), str(child))
+                    graphed.add(f'{str(board)}, {str(child)}')
+
                 aux(child)
 
         aux(self)
